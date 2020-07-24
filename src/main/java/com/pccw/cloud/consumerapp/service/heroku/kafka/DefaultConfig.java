@@ -1,6 +1,5 @@
 package com.pccw.cloud.consumerapp.service.heroku.kafka;
 
-import com.sun.istack.internal.NotNull;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.common.config.SslConfigs;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,7 +21,6 @@ import java.util.Properties;
 public class DefaultConfig {
 
     @Value("${KAFKA_URL}")
-    @NotNull
     private final String kafkaURL;
 
     private final String plainText;
