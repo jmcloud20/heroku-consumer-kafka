@@ -46,7 +46,7 @@ public class KafkaCloudListener {
         MessageDto messageDto = objectMapper.readValue(brokerMessage, MessageDto.class);
         Map<String, Object> message = (Map<String, Object>) messageDto.getMessage();
         Long publishTime = (Long) message.get("publishTime");
-        Long transportTime = publishTime - new Date().getTime();
+        Long transportTime = new Date().getTime() - publishTime;
         log.info("Transport Time: " + transportTime.toString() + " milli seconds");
     }
 
