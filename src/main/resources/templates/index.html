@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Consumer Received Files</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <h2>UPDATE EMAIL TRANSACTIONS</h2>
+    <p>These are the email transactions that came from consumer kafka.</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Source</th>
+            <th>Publish Time</th>
+            <th>Date Received</th>
+            <th>Transport Time(milli-second)</th>
+            <th>User ID</th>
+            <th>Old Email</th>
+            <th>New Email</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="email : ${updateEmail}">
+            <td th:text="${email.topic}"></td>
+            <td th:text="${email.message.source}"></td>
+            <td th:text="${email.message.publishTime}"></td>
+            <td th:text="${email.dateReceived}"></td>
+            <td th:text="${email.transportTime}"></td>
+            <td th:text="${email.message.userId}"></td>
+            <td th:text="${email.message.oldEmail}"></td>
+            <td th:text="${email.message.newEmail}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="container">
+    <h2>CUSTOMER OPT TRANSACTIONS</h2>
+    <p>These are the customer opt transactions that came from consumer kafka.</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Source</th>
+            <th>Publish Time</th>
+            <th>Date Received</th>
+            <th>Transport Time(milli-second)</th>
+            <th>User ID</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>HKID</th>
+            <th>Brand</th>
+            <th>Opt Out</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="opt : ${customerOpt}">
+            <td th:text="${opt.topic}"></td>
+            <td th:text="${opt.message.source}"></td>
+            <td th:text="${opt.message.publishTime}"></td>
+            <td th:text="${opt.dateReceived}"></td>
+            <td th:text="${opt.transportTime}"></td>
+            <td th:text="${opt.message.userId}"></td>
+            <td th:text="${opt.message.mobile}"></td>
+            <td th:text="${opt.message.email}"></td>
+            <td th:text="${opt.message.hkId}"></td>
+            <td th:text="${opt.message.brand}"></td>
+            <td th:text="${opt.message.optOut}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container">
+    <h2>PRODUCT OFFER TRANSACTIONS</h2>
+    <p>These are the product offer transactions that came from consumer kafka.</p>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Topic</th>
+            <th>Source</th>
+            <th>Publish Time</th>
+            <th>Date Received</th>
+            <th>Transport Time(milli-second)</th>
+            <th>Offer ID</th>
+            <th>Brand</th>
+            <th>Type</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="offer : ${productOffer}">
+            <td th:text="${offer.topic}"></td>
+            <td th:text="${offer.message.source}"></td>
+            <td th:text="${offer.message.publishTime}"></td>
+            <td th:text="${offer.dateReceived}"></td>
+            <td th:text="${offer.transportTime}"></td>
+            <td th:text="${offer.message.offerId}"></td>
+            <td th:text="${offer.message.brand}"></td>
+            <td th:text="${offer.message.type}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

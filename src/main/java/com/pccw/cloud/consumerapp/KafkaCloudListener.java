@@ -12,6 +12,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class KafkaCloudListener {
 
+    public static final String CUSTOMER_OPT = "customerOpt";
+    public static final String UPDATE_EMAIL = "updateEmail";
+    public static final String PROD_OFFER = "productOffer";
+
     private final MessageService messageService;
 
     public KafkaCloudListener(MessageService messageService) {
@@ -21,7 +25,7 @@ public class KafkaCloudListener {
     @KafkaListener(topics = "CUST_optOut_optIn", groupId = "customerOpt", containerFactory = "optContainerFactory")
     public void readOpt(String message) throws JsonProcessingException {
         messageService.save(
-                "CustomerOpt",
+                KafkaCloudListener.CUSTOMER_OPT,
                 messageService.createMessageDto(message));
         log.info("Opt In-Out message: " + message);
     }
@@ -29,7 +33,7 @@ public class KafkaCloudListener {
     @KafkaListener(topics = "CUST_update_email", groupId = "updateEmail", containerFactory = "updateEmailFactory")
     public void readUpdateEmail(String message) throws JsonProcessingException {
         messageService.save(
-                "updateEmail",
+                KafkaCloudListener.UPDATE_EMAIL,
                 messageService.createMessageDto(message));
         log.info("Update email message: " + message);
     }
@@ -37,7 +41,7 @@ public class KafkaCloudListener {
     @KafkaListener(topics = "PROD_offer", groupId = "productOffer", containerFactory = "prodOfferFactory")
     public void readProdffer(String message) throws JsonProcessingException {
         messageService.save(
-                "productOffer",
+                KafkaCloudListener.PROD_OFFER,
                 messageService.createMessageDto(message));
         log.info("Product offer message: " + message);
     }
