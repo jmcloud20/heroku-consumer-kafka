@@ -13,4 +13,7 @@ public class MessageDto {
     private String topic;
     private String desc;
     private Object message;
+    private String dateReceived;
+    private Long transportTime;
 }
+
