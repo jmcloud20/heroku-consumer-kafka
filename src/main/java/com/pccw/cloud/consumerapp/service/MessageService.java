@@ -46,6 +46,17 @@ public class MessageService {
         return messageDto;
     }
 
+    public MessageDto createMessageDto_CustomerUpdate(String brokerMessage) throws JsonProcessingException {
+        MessageDto messageDto = objectMapper.readValue(brokerMessage, MessageDto.class);
+        Map<String, Object> message = (Map<String, Object>) messageDto.getMessage();
+        Long publishTime = (Long) message.get("publishTime");
+        Long transportTime = new Date().getTime() - publishTime;
+        log.info("Transport Time: " + transportTime.toString() + " milli seconds");
+        messageDto.setTransportTime(transportTime);
+        messageDto.setDateReceived(formatHKTDate());
+        return messageDto;
+    }
+
     public String formatHKTDate() {
         log.info("Set format for date.");
         SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz YYYY");

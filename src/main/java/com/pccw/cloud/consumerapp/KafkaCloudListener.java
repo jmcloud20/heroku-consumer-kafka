@@ -15,6 +15,8 @@ public class KafkaCloudListener {
     public static final String CUSTOMER_OPT = "customerOpt";
     public static final String UPDATE_EMAIL = "updateEmail";
     public static final String PROD_OFFER = "productOffer";
+    public static final String CUSTOMER_UPDATE = "customerUpdate";
+
 
     private final MessageService messageService;
 
@@ -43,6 +45,14 @@ public class KafkaCloudListener {
         messageService.save(
                 KafkaCloudListener.PROD_OFFER,
                 messageService.createMessageDto(message));
+        log.info("Product offer message: " + message);
+    }
+
+    @KafkaListener(topics = "CustomerUpdate", groupId = "customerUpdate", containerFactory = "customerUpdateFactory")
+    public void customerUpdate(String message) throws JsonProcessingException {
+        messageService.save(
+                KafkaCloudListener.CUSTOMER_UPDATE,
+                messageService.createMessageDto_CustomerUpdate(message));
         log.info("Product offer message: " + message);
     }
 
