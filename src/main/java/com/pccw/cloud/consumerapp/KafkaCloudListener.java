@@ -57,7 +57,7 @@ public class KafkaCloudListener {
             messageService.save(
                     KafkaCloudListener.CUSTOMER_UPDATE,
                     messageDto);
-            log.info("Product offer message: " + message);
+            log.info("Customer Update message: " + message);
         }
     }
 }
