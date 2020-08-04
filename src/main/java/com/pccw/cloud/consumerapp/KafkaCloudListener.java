@@ -1,6 +1,7 @@
 package com.pccw.cloud.consumerapp;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.pccw.cloud.consumerapp.model.MessageDto;
 import com.pccw.cloud.consumerapp.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -15,6 +16,7 @@ public class KafkaCloudListener {
     public static final String CUSTOMER_OPT = "customerOpt";
     public static final String UPDATE_EMAIL = "updateEmail";
     public static final String PROD_OFFER = "productOffer";
+
 
     private final MessageService messageService;
 
@@ -46,5 +48,23 @@ public class KafkaCloudListener {
         log.info("Product offer message: " + message);
     }
 
-
+    @KafkaListener(topics = "CustomerUpdate", groupId = "customerUpdate", containerFactory = "customerUpdateFactory")
+    public void customerUpdate(String message) throws JsonProcessingException {
+        MessageDto messageDto = messageService.createMessageDto(message);
+        
+        switch (messageDto.getTopic()) {
+            case "CUST_optOut_optIn":
+                messageService.save(KafkaCloudListener.CUSTOMER_OPT, messageDto);
+                log.info("Customer Update message: " + message);
+                break;
+            case "CUST_update_email":
+                messageService.save(KafkaCloudListener.UPDATE_EMAIL, messageDto);
+                log.info("Customer Update message: " + message);
+                break;
+            case "PROD_offer":
+                messageService.save(KafkaCloudListener.PROD_OFFER, messageDto);
+                log.info("Customer Update message: " + message);
+                break;
+        }
+    }
 }

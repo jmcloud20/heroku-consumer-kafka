@@ -9,8 +9,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class ConsumerAppApplication {
 
 	public static void main(String[] args) {
+
 		ConfigurableApplicationContext context = SpringApplication.run(ConsumerAppApplication.class, args);
-
-
 	}
 }

@@ -71,5 +71,10 @@ public class KafkaConsumerConfig {
         return this.kafkaListenerContainerFactory("productOffer");
     }
 
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory customerUpdateFactory() throws CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, URISyntaxException {
+        return this.kafkaListenerContainerFactory("customerUpdate");
+    }
+
 
 }
