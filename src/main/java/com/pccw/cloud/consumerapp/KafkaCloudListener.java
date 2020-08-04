@@ -51,13 +51,22 @@ public class KafkaCloudListener {
 
     @KafkaListener(topics = "CustomerUpdate", groupId = "customerUpdate", containerFactory = "customerUpdateFactory")
     public void customerUpdate(String message) throws JsonProcessingException {
-        MessageDto messageDto = new MessageDto();
-        messageDto = messageService.createMessageDto(message);
-        if(messageDto.getTopic().equals("CustomerUpdate")) {
-            messageService.save(
-                    KafkaCloudListener.CUSTOMER_UPDATE,
-                    messageDto);
-            log.info("Customer Update message: " + message);
+        MessageDto messageDto = messageService.createMessageDto(message);
+
+        String topic = messageDto.getTopic();
+        switch (topic) {
+            case "CUST_optOut_optIn":
+                messageService.save(KafkaCloudListener.CUSTOMER_OPT, messageDto);
+                log.info("Customer Update message: " + message);
+                break;
+            case "CUST_update_email":
+                messageService.save(KafkaCloudListener.UPDATE_EMAIL, messageDto);
+                log.info("Customer Update message: " + message);
+                break;
+            case "PROD_offer":
+                messageService.save(KafkaCloudListener.PROD_OFFER, messageDto);
+                log.info("Customer Update message: " + message);
+                break;
         }
     }
 }
