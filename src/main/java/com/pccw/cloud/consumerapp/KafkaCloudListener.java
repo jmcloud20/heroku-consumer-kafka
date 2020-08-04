@@ -53,7 +53,7 @@ public class KafkaCloudListener {
     public void customerUpdate(String message) throws JsonProcessingException {
         MessageDto messageDto = new MessageDto();
         messageDto = messageService.createMessageDto(message);
-        if(messageDto.getTopic() == "CustomerUpdate") {
+        if(messageDto.getTopic().equals("CustomerUpdate")) {
             messageService.save(
                     KafkaCloudListener.CUSTOMER_UPDATE,
                     messageDto);
